@@ -20,18 +20,23 @@ export interface GradeDistribution {
 
 export interface Summary {
   totalStudents: number;
-  subjectsAnalysed: number;
+  subjectAnalysed: number;
   gradeDistribution: GradeDistribution;
-  subjectStats: Record<string, SubjectStat>;
+  subjectStatistics: Record<string, SubjectStat>;
   topStudents: StudentRecord[];
   weakStudents: StudentRecord[];
 }
 
+export type { Summary as SummaryData };
+
 export interface AttendanceInsight {
-  high_attendance_avg_score: number | null;
-  low_attendance_avg_score: number | null;
-  score_difference: number | null;
+  high_attendance_avg: number | null;
+  low_attendance_avg: number | null;
+  difference: number | null;
   attendance_column: string;
+  high_attendance_avg_score?: number | null;
+  low_attendance_avg_score?: number | null;
+  score_difference?: number | null;
 }
 
 export interface SubjectAveragePoint {

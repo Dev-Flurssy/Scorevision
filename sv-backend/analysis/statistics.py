@@ -22,7 +22,7 @@ def compute_stats(df:pd.DataFrame, score_cols:list, id_col:str) -> dict:
             'std': round(float(df[col].std()), 2),
             'min': round(float(df[col].min()), 2),
             'max': round(float(df[col].max()), 2),
-            'pass-rate': round(float((df[col] >= Yellow).mean() * 100), 2),
+            'pass_rate': round(float((df[col] >= Yellow).mean() * 100), 2),
         }
     
     df['_total'] = df[score_cols].mean(axis=1)
