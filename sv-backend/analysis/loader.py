@@ -49,7 +49,7 @@ def detect_columns(df: pd.DataFrame) -> dict:
 
     id_col = None
     for col in cols:
-        if df[col].dtype == 'object':
+        if pd.api.types.is_string_dtype(df[col]) and not pd.api.types.is_numeric_dtype(df[col]):
             id_col = col
             break
 

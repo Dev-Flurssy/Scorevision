@@ -11,13 +11,15 @@ export const InsightCard = ({ title, items, variant }: Props) => {
 
   return (
     <div className={`insight-card insight-card-${variant}`}>
-      <h3 className="insight-card_title">
-        <Icon className="insight-card_icon" aria-hidden="true" />
+      <h3 className="insight-card-title">
+        <Icon className="insight-card-icon" aria-hidden="true" />
         {title}
       </h3>
-      <ul className="insight-card_list">
-        {items.map((item, i) =>(
-            <li key={i} className="insight-card_item">{item}</li>
+      <ul className="insight-card-list">
+        {items.map((item, i) => (
+          <li key={i} className="insight-card-item">
+            {item}
+          </li>
         ))}
       </ul>
     </div>

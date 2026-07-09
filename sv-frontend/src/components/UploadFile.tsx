@@ -2,6 +2,7 @@ import { useRef, useState, DragEvent, ChangeEvent } from "react";
 import type { AnalysisResult } from "../types/dataTypes";
 import axios from "axios";
 import { FaCloudArrowUp, FaFileCsv } from "react-icons/fa6";
+import { API_BASE } from "../config/api";
 
 interface Props {
   onSuccess: (data: AnalysisResult) => void;
@@ -19,9 +20,7 @@ export const UploadFile = ({ onSuccess, onError, onloading }: Props) => {
     const ext = "." + file.name.split(".").pop()?.toLowerCase();
 
     if (!allowed.includes(ext)) {
-      onError(
-        "CSV, TXT, JSON, and Excel (.xlsx, .xls) are the only file types accepted.",
-      );
+      onError("CSV, TXT, JSON, and Excel (.xlsx, .xls) are the only file types accepted.");
       return;
     }
 
@@ -32,9 +31,9 @@ export const UploadFile = ({ onSuccess, onError, onloading }: Props) => {
     formData.append("file", file);
 
     try {
-      const res = await axios.post<AnalysisResult>("/api/upload", formData, {
+      const res = await axios.post<AnalysisResult>(`${API_BASE}/api/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
-        timeout: 6000,
+        timeout: 60000,
       });
 
       if (res.data.success) {
@@ -48,7 +47,6 @@ export const UploadFile = ({ onSuccess, onError, onloading }: Props) => {
           (err.response?.data as { error?: string })?.error ||
           err.message ||
           "Upload failed";
-
         onError(msg);
       } else {
         onError("An unexpected error occurred.");
@@ -71,11 +69,8 @@ export const UploadFile = ({ onSuccess, onError, onloading }: Props) => {
   return (
     <>
       <div
-        className={`upload-zone ${dragging ? "upload-zone--dragging" : ""}`}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setDragging(true);
-        }}
+        className={`upload-zone ${dragging ? "upload-zone-dragging" : ""}`}
+        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
         onClick={() => inputRef.current?.click()}
@@ -91,22 +86,15 @@ export const UploadFile = ({ onSuccess, onError, onloading }: Props) => {
       >
         {fileName ? (
           <>
-            <FaFileCsv
-              className="upload-zone_icon upload-zone_icon--active"
-              aria-hidden="true"
-            />
-            <p className="upload-zone_filename">{fileName}</p>
+            <FaFileCsv className="upload-zone-icon upload-zone-icon-active" aria-hidden="true" />
+            <p className="upload-zone-filename">{fileName}</p>
           </>
         ) : (
           <>
-            <FaCloudArrowUp className="upload-zone_icon" aria-hidden="true" />
-            <p className="upload-zone_title">
-              Drop your CSV or Excel file here
-            </p>
-            <p className="upload-zone_sub">or click to browse</p>
-            <p className="upload-zone_hint">
-              Supports .csv · .xlsx · .xls — max 10 MB
-            </p>
+            <FaCloudArrowUp className="upload-zone-icon" aria-hidden="true" />
+            <p className="upload-zone-title">Drop your CSV or Excel file here</p>
+            <p className="upload-zone-sub">or click to browse</p>
+            <p className="upload-zone-hint">Supports .csv · .xlsx · .xls — max 10 MB</p>
           </>
         )}
       </div>
@@ -114,7 +102,7 @@ export const UploadFile = ({ onSuccess, onError, onloading }: Props) => {
         type="file"
         ref={inputRef}
         accept=".csv, .txt, .json, .xlsx, .xls"
-        className="upload-zone__input"
+        className="upload-zone-input"
         onChange={onInputChange}
         aria-hidden="true"
       />

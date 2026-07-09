@@ -1,6 +1,7 @@
 import "./App.css";
 import { UploadFile } from "./components/UploadFile";
 import { Dashboard } from "./components/Dashboard";
+import { DashboardSkeleton } from "./components/DashboardSkeleton";
 
 import { useState } from "react";
 import { AppState } from "./types/dataTypes";
@@ -70,6 +71,8 @@ function App() {
           </section>
         </>
       )}
+
+      {state.status === "loading" && <DashboardSkeleton />}
 
       {state.status === "error" && (
         <div className="error-banner">

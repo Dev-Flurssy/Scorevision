@@ -2,7 +2,7 @@ import { AnalysisResult } from "../types/dataTypes";
 import { StudentTable } from "./StudentTable";
 import { Chart } from "./Chart";
 import { InsightCard } from "./InsightCard";
-import { FaTrophy, FaTriangleExclamation, FaRotateLeft, FaFilePdf } from "react-icons/fa6";
+import { FaTrophy, FaTriangleExclamation, FaArrowLeft, FaFilePdf } from "react-icons/fa6";
 import { useExportPDF } from "../hooks/useExportPDF";
 
 interface Props {
@@ -18,6 +18,11 @@ export const Dashboard = ({ data, onReset }: Props) => {
 
   return (
     <main className="dashboard" id="dashboard-export-root">
+      <button className="btn-back" onClick={onReset} aria-label="Go back to upload">
+        <FaArrowLeft aria-hidden="true" />
+        Back
+      </button>
+
       <div className="dashboard-header">
         <div>
           <h2 className="dashboard-title">Analysis Complete</h2>
@@ -25,10 +30,6 @@ export const Dashboard = ({ data, onReset }: Props) => {
             {totalStudents} students · {subjectAnalysed} subject
             {subjectAnalysed !== 1 ? "s" : ""}
           </p>
-          <button className="btn btn-ghost" onClick={onReset}>
-            <FaRotateLeft aria-hidden="true" />
-            Upload Another File
-          </button>
         </div>
         <button
           className="btn btn-export"
