@@ -1,6 +1,6 @@
 # ScoreVision
 
-AI-powered student performance analytics. Upload a CSV or Excel file of student scores and get instant insights — grade distributions, subject breakdowns, at-risk flags, and plain-English recommendations.
+It is an AI powered student performance analytics where a CSV, JSON TXT or Excel file of student scores can be uploaded and instant insights like grade distributions, subject breakdowns, at-risk flags, and plain-English recommendations can be derived.
 
 **Live demo:**
 
