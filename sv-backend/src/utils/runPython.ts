@@ -1,6 +1,6 @@
 import { spawn } from "child_process";
 
-const DEFAULT_PYTHON_EXE = "C:/Users/HP/ml-starter/ml_env/Scripts/python.exe";
+const DEFAULT_PYTHON_EXE = "python3";
 
 export const runPython = (script: string, args: string[]): Promise<string> => {
   return new Promise((resolve, reject) => {
