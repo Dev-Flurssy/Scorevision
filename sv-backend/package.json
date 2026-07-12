@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
+    "postinstall": "pip install -r requirements.txt || python3 -m pip install -r requirements.txt",
     "start": "node dist/server.js"
   },
   "engines": {
