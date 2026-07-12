@@ -48,20 +48,29 @@ def detect_columns(df: pd.DataFrame) -> dict:
     cols = df.columns.to_list()
 
     id_col = None
+
+    # First try: look for a string/object column (e.g. student names)
     for col in cols:
         if pd.api.types.is_string_dtype(df[col]) and not pd.api.types.is_numeric_dtype(df[col]):
             id_col = col
             break
 
+    # Second try: look for a column with "id", "name", or "student" in the name
     if id_col is None:
-        raise ValueError("No object column found for ID")
+        for col in cols:
+            if any(kw in col.lower() for kw in ["id", "name", "student", "no", "num"]):
+                id_col = col
+                break
+
+    # Last resort: use the first column as ID
+    if id_col is None:
+        id_col = cols[0]
 
     score_cols = [
         col for col in cols
         if pd.api.types.is_numeric_dtype(df[col]) and col != id_col
     ]
 
-    
     attendance_col = None
     for col in cols:
         if "attendance" in col.lower():
