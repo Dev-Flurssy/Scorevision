@@ -1,11 +1,14 @@
 [phases.setup]
-nixPkgs = ["nodejs_20", "python311", "python311Packages.pip"]
+nixPkgs = ["nodejs_20", "python312", "python312Packages.pip"]
 
 [phases.install]
-cmds = ["npm ci"]
+cmds = [
+  "pip install -r requirements.txt",
+  "npm ci"
+]
 
 [phases.build]
-cmds = ["pip install -r requirements.txt", "npm run build"]
+cmds = ["npm run build"]
 
 [start]
 cmd = "npm start"
