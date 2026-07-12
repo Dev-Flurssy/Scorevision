@@ -2,11 +2,11 @@ import { spawn } from "child_process";
 
 const DEFAULT_PYTHON_EXE = "python3";
 
-export const runPython = (script: string, args: string[]): Promise<string> => {
+export const runPython = (script: string, args: string[], cwd?: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const pythonExe = process.env.PYTHON_PATH || DEFAULT_PYTHON_EXE;
 
-    const py = spawn(pythonExe, [script, ...args]);
+    const py = spawn(pythonExe, [script, ...args], { cwd });
 
     let out = "";
     let err = "";

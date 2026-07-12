@@ -9,10 +9,12 @@ export const handleUpload = async (req: UploadRequest, res: Response) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
   const filePath = req.file.path;
-  const scriptPath = path.resolve("analysis/analyze.py");
+  // Resolve analysis dir relative to project root (one level up from dist/)
+  const analysisDir = path.resolve(__dirname, "../../analysis");
+  const scriptPath = path.join(analysisDir, "analyze.py");
 
   try {
-    const raw = await runPython(scriptPath, [filePath]);
+    const raw = await runPython(scriptPath, [filePath], analysisDir);
     const result = JSON.parse(raw);
 
     fs.unlink(filePath, () => {});
