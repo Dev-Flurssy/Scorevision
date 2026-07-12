@@ -2,7 +2,11 @@
 nixPkgs = ["nodejs_20", "python312", "python312Packages.pip"]
 
 [phases.install]
-cmds = ["npm ci"]
+cmds = [
+  "python3 -m ensurepip --upgrade",
+  "python3 -m pip install -r python-requirements.txt",
+  "npm ci --ignore-scripts"
+]
 
 [phases.build]
 cmds = ["npm run build"]
